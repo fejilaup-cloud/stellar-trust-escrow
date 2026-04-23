@@ -278,3 +278,15 @@ pub fn emit_slash_dispute_resolved(env: &Env, escrow_id: u64, upheld: bool, amou
         (upheld, amount),
     );
 }
+
+/// Emitted when the contract is upgraded.
+///
+/// # Arguments
+/// * `admin`          - Address of the admin performing the upgrade
+/// * `new_wasm_hash`  - Hash of the new WASM code
+pub fn emit_upgrade_executed(env: &Env, admin: &Address, new_wasm_hash: &soroban_sdk::BytesN<32>) {
+    env.events().publish(
+        (symbol_short!("upg_exe"),),
+        (admin.clone(), new_wasm_hash.clone()),
+    );
+}
